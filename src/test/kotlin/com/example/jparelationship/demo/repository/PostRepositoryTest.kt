@@ -20,11 +20,8 @@ class PostRepositoryTest(val postRepository: PostRepository) {
 
     @Test
     fun testFindById() {
-        val findById = postRepository.findById(1L)
+        val post = postRepository.findById(1L).get()
 
-        val map = findById.map { it.details }
-
-        Assertions.assertTrue(map.get() is HibernateProxy)
-        Assertions.assertEquals(map.get().content, "안녕하세요. 여러분 게시물 내용1")
+        Assertions.assertTrue(post.details is HibernateProxy)
     }
 }
