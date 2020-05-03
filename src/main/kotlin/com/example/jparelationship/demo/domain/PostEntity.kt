@@ -12,7 +12,7 @@ class Post(
         @Column(name = "created_at")
         val createdAt: LocalDateTime? = LocalDateTime.now(),
 
-        @OneToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL], optional = false)
+        @OneToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL], optional = true)
         var details: PostDetails? = null
 )
 
