@@ -4,32 +4,20 @@ import java.time.LocalDateTime
 import javax.persistence.*
 
 @Entity
-class Post {
-    @Id
-    @GeneratedValue
-    val id: Long? = null
-    val title: String? = null
+class Post(
+        @Id @GeneratedValue
+        val id: Long? = null,
 
-    @OneToOne(mappedBy = "post", cascade = [CascadeType.ALL], fetch = FetchType.LAZY, optional = false)
-    private var details: PostDetails? = null
-        set(value) {
-            if (value == null) {
-                if (field != null) {
-                    field?.post = null
-                }
-            } else {
-                value
-                        .post = this
-            }
-            field = value
+        var title: String? = null,
+        @Column(name = "created_at")
+        val createdAt: LocalDateTime? = LocalDateTime.now(),
 
-        }
-}
+        @OneToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL], optional = false)
+        var details: PostDetails? = null
+)
 
 @Entity
 class PostDetails(
         @Id @GeneratedValue val id: Long? = null,
-        @Column val createdAt: LocalDateTime? = LocalDateTime.now(),
-        @OneToOne(fetch = FetchType.LAZY) @JoinColumn(name = "post_id")
-        var post: Post? = null
+        @Column(nullable = false) var content: String = ""
 )
