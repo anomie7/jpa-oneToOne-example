@@ -10,10 +10,10 @@ class Post(
 
         var title: String? = null,
         @Column(name = "created_at")
-        val createdAt: LocalDateTime? = LocalDateTime.now()
+        val createdAt: LocalDateTime? = LocalDateTime.now(),
 
-//        @OneToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL], optional = true)
-//        var details: PostDetails? = null
+        @OneToOne(mappedBy = "post",fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
+        var details: PostDetails? = null
 )
 
 @Entity
