@@ -10,14 +10,21 @@ class Post(
 
         var title: String? = null,
         @Column(name = "created_at")
-        val createdAt: LocalDateTime? = LocalDateTime.now(),
+        val createdAt: LocalDateTime? = LocalDateTime.now()
 
-        @OneToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL], optional = true)
-        var details: PostDetails? = null
+//        @OneToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL], optional = true)
+//        var details: PostDetails? = null
 )
 
 @Entity
 class PostDetails(
-        @Id @GeneratedValue val id: Long? = null,
-        @Column(nullable = false) var content: String = ""
+        @Id @GeneratedValue
+        val id: Long? = null,
+
+        @Column(nullable = false)
+        var content: String = "",
+
+        @OneToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL],optional = true)
+        @JoinColumn(name = "post_id", referencedColumnName = "id")
+        val post: Post? = null
 )
