@@ -1,17 +1,13 @@
 package com.example.jparelationship.demo.repository
 
-import com.example.jparelationship.demo.domain.Post
-import com.example.jparelationship.demo.domain.PostDetails
 import org.hibernate.proxy.HibernateProxy
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.test.context.TestConstructor
 
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
 @DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class PostRepositoryTest(val postRepository: PostRepository) {
     @Test
     fun `일대일 연관관계에서 부모 엔티티가 연관 관계의 주인이고 외래키 null 허용 안하면 지연 로딩 동작함`() {
@@ -30,13 +26,5 @@ class PostRepositoryTest(val postRepository: PostRepository) {
 
         Assertions.assertTrue(map.get() is HibernateProxy)
         Assertions.assertEquals(map.get().content, "안녕하세요. 여러분 게시물 내용1")
-    }
-
-    @Test
-    fun saveTest() {
-        val post = Post(title = "타이틀", details = PostDetails(content = "콘텐츠"))
-        postRepository.save(post)
-
-        val findById = postRepository.findById(post.id!!)
     }
 }
