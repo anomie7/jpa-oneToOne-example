@@ -10,7 +10,7 @@ import org.springframework.test.context.TestConstructor
 @DataJpaTest
 class PostDetailsRepositoryTest(val postDetailsRepository: PostDetailsRepository) {
     @Test
-    fun `일대일 양방향 연관 관계에서 자식 엔티티가 연관 관계의 주인일 떄 지연 로딩 동작함`() {
+    fun `일대일 단방향 연관 관계에서 부모 엔티티와 식별 관계일 때 지연 로딩 동작함`() {
         val list = postDetailsRepository.findAll()
 
         list.mapNotNull { it.post }.forEach {

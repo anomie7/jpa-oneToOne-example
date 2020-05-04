@@ -12,19 +12,19 @@ class Post(
         @Column(name = "created_at")
         val createdAt: LocalDateTime? = LocalDateTime.now(),
 
-        @OneToOne(mappedBy = "post",fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
+        @Transient
         var details: PostDetails? = null
 )
 
 @Entity
 class PostDetails(
-        @Id @GeneratedValue
+        @Id
         val id: Long? = null,
 
         @Column(nullable = false)
         var content: String = "",
 
-        @OneToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL],optional = true)
-        @JoinColumn(name = "post_id", referencedColumnName = "id")
+        @OneToOne(fetch = FetchType.LAZY)
+        @MapsId
         val post: Post? = null
 )
