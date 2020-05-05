@@ -2,8 +2,10 @@ package com.example.jparelationship.demo.repository
 
 import com.example.jparelationship.demo.domain.*
 import com.querydsl.core.types.Projections
+import org.springframework.data.jpa.repository.EntityGraph
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport
+import java.util.*
 
 interface PostRepository : JpaRepository<Post, Long?>, PostRepositoryCustom
 
@@ -25,4 +27,7 @@ class PostRepositoryImpl : QuerydslRepositorySupport(Post::class.java), PostRepo
     }
 }
 
-interface PostDetailsRepository : JpaRepository<PostDetails, Long?>
+interface PostDetailsRepository : JpaRepository<PostDetails, Long?>{
+    @EntityGraph(attributePaths = ["post"], type = EntityGraph.EntityGraphType.LOAD)
+    override fun findById(id: Long): Optional<PostDetails>
+}

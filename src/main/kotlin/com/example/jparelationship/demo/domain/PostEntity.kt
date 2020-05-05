@@ -24,7 +24,7 @@ class PostDetails(
         @Column(nullable = false)
         var content: String = "",
 
-        @OneToOne(fetch = FetchType.LAZY)
+        @OneToOne(fetch = FetchType.LAZY, optional = false)
         @MapsId
         val post: Post? = null
 )

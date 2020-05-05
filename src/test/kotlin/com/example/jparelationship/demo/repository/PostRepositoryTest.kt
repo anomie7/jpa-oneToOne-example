@@ -18,14 +18,18 @@ class PostRepositoryTest(val postRepository: PostRepository) {
     }
 
     @Test
-    fun `게시물 조회`() {
-        val findOneBy = postRepository.findOneBy(1)
+    fun testFindById() {
+        val post = postRepository.getOne(1L)
+
+        Assertions.assertTrue(post.details == null)
     }
 
     @Test
-    fun testFindById() {
-        val post = postRepository.findById(1L).get()
+    fun `queryDsl로 join하고 사용할 칼럼을 명시한 게시물 조회`() {
+        val postDto = postRepository.findOneBy(1)
 
-        Assertions.assertTrue(post.details == null)
+        Assertions.assertEquals(postDto.postId, 1)
+        Assertions.assertEquals(postDto.title, "JPA에서 일대일 연관 관계 정의시 고려할 점1")
+        Assertions.assertEquals(postDto.content, "안녕하세요. 여러분 게시물 내용1")
     }
 }
