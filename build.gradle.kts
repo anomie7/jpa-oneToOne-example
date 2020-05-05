@@ -27,21 +27,16 @@ repositories {
 }
 
 dependencies {
+	api("com.querydsl:querydsl-jpa:4.2.2")
 	implementation("mysql:mysql-connector-java:8.0.14")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-	implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
-	implementation("org.springframework.boot:spring-boot-starter-web")
-	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-	implementation("org.springframework.boot:spring-boot-starter-security")
-	implementation("org.springframework.security:spring-security-test")
-	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	runtimeOnly("com.h2database:h2")
 
-	implementation("org.mapstruct:mapstruct:1.3.1.Final")
-	kapt("org.mapstruct:mapstruct-processor:1.3.1.Final")
-	kaptTest("org.mapstruct:mapstruct-processor:1.3.1.Final")
+	kapt("com.querydsl:querydsl-apt:4.2.2:jpa")
+	kapt("org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.2.Final")
+
 	testImplementation("org.springframework.boot:spring-boot-starter-test") {
 		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
 	}
