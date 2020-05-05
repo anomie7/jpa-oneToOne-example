@@ -18,6 +18,11 @@ class PostRepositoryTest(val postRepository: PostRepository) {
     }
 
     @Test
+    fun `게시물 조회`() {
+        val findOneBy = postRepository.findOneBy(1)
+    }
+
+    @Test
     fun testFindById() {
         val post = postRepository.findById(1L).get()
 
