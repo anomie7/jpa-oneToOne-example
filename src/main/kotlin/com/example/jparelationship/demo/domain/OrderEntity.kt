@@ -1,5 +1,6 @@
 package com.example.jparelationship.demo.domain
 
+import org.hibernate.annotations.Formula
 import javax.persistence.*
 
 @Entity
@@ -7,7 +8,8 @@ class Person(
         @Id @GeneratedValue val id: Long,
         @Column(unique = true) val email: String,
         @OneToMany(fetch = FetchType.LAZY ,mappedBy = "person", cascade = [CascadeType.ALL]) val orders: MutableList<Order>,
-        @OneToMany(fetch = FetchType.LAZY ,mappedBy = "person", cascade = [CascadeType.ALL]) val coupons: MutableList<Coupon>
+        @OneToMany(fetch = FetchType.LAZY ,mappedBy = "person", cascade = [CascadeType.ALL]) val coupons: MutableList<Coupon>,
+        @Formula("(SELECT count(*) from COUPON c where c.person_id = id)") val couponCount : Int
 )
 
 /**

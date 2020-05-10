@@ -52,7 +52,6 @@ class OrderRepositoryTest(
         }
     }
 
-
     @Test
     fun `회원이 쿠폰의 상세한 내역을 EntityGraph로 조회하는 경우`() {
         val person = personRepository.getOne(1)
@@ -91,5 +90,19 @@ class OrderRepositoryTest(
             Assertions.assertEquals(it.name, "vip 회원 감사 쿠폰")
             Assertions.assertEquals(it.discountPercentage, 5)
         }
+    }
+
+    @Test
+    fun `마이페이지에서 서브 쿼리로 쿠폰 갯수만 조회하는 경우`() {
+        val person = personRepository.getOne(1)
+
+        Assertions.assertEquals(3, person.couponCount)
+    }
+
+    @Test
+    fun `마이페이지에서 쿠폰 갯수만 조회하는 경우`() {
+        val person = personRepository.getOne(1)
+
+        Assertions.assertEquals(3, person.coupons.size)
     }
 }
