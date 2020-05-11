@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.Query
 interface PersonRepository : JpaRepository<Person, Long>
 
 interface OrderRepository : JpaRepository<Order, Long>{
-    @EntityGraph(attributePaths = ["coupon", "person"], type = EntityGraph.EntityGraphType.LOAD)
+    @EntityGraph(attributePaths = ["coupons", "person"], type = EntityGraph.EntityGraphType.LOAD)
     @Query(value = "select o from Order o where o.id = ?1")
     fun findByIdUsingEntityGraph(id: Long): Order?
 }
