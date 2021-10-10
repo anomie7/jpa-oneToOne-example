@@ -27,13 +27,12 @@ class LocalDateLongConverter : AttributeConverter<LocalDate, Long> {
     }
 
     override fun convertToEntityAttribute(dbData: Long?): LocalDate {
-        dbData?.run {
-            val year = dbData / 10000
-            val month = (dbData % 10000).toString().substring(0, 2)
-            val dayOfWeek = (dbData % 10000).toString().substring(2)
-            "$year" + month + dayOfWeek
-        }
-        return LocalDate.now()
+        return dbData?.run {
+            val year = (dbData / 10000).toInt()
+            val month = ((dbData % 10000) / 100).toInt()
+            val dayOfWeek = (dbData % 100).toInt()
+            LocalDate.of(year, month, dayOfWeek)
+        } ?: LocalDate.now()
     }
 
 }
