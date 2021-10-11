@@ -1,6 +1,7 @@
 package com.example.jparelationship.demo
 
 import com.example.jparelationship.demo.domain.Event
+import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
@@ -28,7 +29,7 @@ class AttributeConvertorTest(val em: EntityManager) {
     fun testSelect() {
         val event1 = em.find(Event::class.java, 1L)
         val event2 = em.find(Event::class.java, 2L)
-        println(event1.id)
-        println(event2.id)
+        Assertions.assertEquals(event1.tmpDate, LocalDate.of(2021, 10, 4))
+        Assertions.assertEquals(event2.tmpDate, LocalDate.of(2021, 11, 24))
     }
 }
